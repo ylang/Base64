@@ -81,7 +81,7 @@ public abstract class Base64 {
      */
     public static byte[] decode(String input) {
         byte[] output;
-        ArrayList<Integer> oal = new ArrayList();
+        ArrayList<Integer> oal = new ArrayList<Integer>();
 
         String tmpString = input.toString();
         if (tmpString.indexOf("=") != -1) {

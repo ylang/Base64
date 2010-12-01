@@ -34,7 +34,8 @@ import static org.junit.Assert.*;
  * @author Jason Howk
  */
 public class Base64Test {
-    private static String input ;
+
+    private static String input;
     private static String output;
     private static byte[] digest;
     private static String encDigest;
@@ -49,16 +50,16 @@ public class Base64Test {
         input = "The quick brown fox jumps over the lazy dog.";
         output = "VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZy4=";
         System.out.println("String Setup:");
-        System.out.printf(" INPUT: %s\n",input);
-        System.out.printf("OUTPUT: %s\n",output);
+        System.out.printf(" INPUT: %s\n", input);
+        System.out.printf("OUTPUT: %s\n", output);
 
         // Binary data.  Going to create a SHA-256 hash of the input above.
         encDigest = "71N/JciVv6eCUmUpqbY9l6pjFWTV14nCt2VEjIY1+2w=";
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         digest = md.digest(input.getBytes());
         System.out.println("Binary Setup:");
-        System.out.printf("  HASH: %s\n",toHexString(digest));
-        System.out.printf("OUTPUT: %s\n",encDigest);
+        System.out.printf("  HASH: %s\n", toHexString(digest));
+        System.out.printf("OUTPUT: %s\n", encDigest);
         System.out.println("\nStarting Tests...\n");
     }
 
@@ -81,7 +82,7 @@ public class Base64Test {
     public void testEncodeString() {
         System.out.println("testEncodeString...");
         String result = Base64.encode(input.getBytes());
-        System.out.printf("\tRESULT: %s\n",result);
+        System.out.printf("\tRESULT: %s\n", result);
         assertEquals(output, result);
     }
 
@@ -92,7 +93,7 @@ public class Base64Test {
     public void testDecodeString() {
         System.out.println("testDecodeString...");
         String result = new String(Base64.decode(output));
-        System.out.printf("\tRESULT: %s\n",result);
+        System.out.printf("\tRESULT: %s\n", result);
         assertEquals(input, result);
     }
 
@@ -100,7 +101,7 @@ public class Base64Test {
     public void testEncodeBinary() {
         System.out.println("testEncodeBinary...");
         String result = Base64.encode(digest);
-        System.out.printf("\tRESULT: %s\n",result);
+        System.out.printf("\tRESULT: %s\n", result);
         assertEquals(encDigest, result);
     }
 
@@ -108,14 +109,13 @@ public class Base64Test {
     public void testDecodeBinary() {
         System.out.println("testDecodeBinary...");
         byte[] result = Base64.decode(encDigest);
-        System.out.printf("\tRESULT: %s\n",toHexString(result));
+        System.out.printf("\tRESULT: %s\n", toHexString(result));
         assertArrayEquals(digest, result);
     }
 
-
     private static String toHexString(byte[] array) {
         StringBuilder hash = new StringBuilder();
-        for (byte b: array) {
+        for (byte b : array) {
             if (b < 0) {
                 hash.append(Integer.toHexString(0x000000ff & b));
             } else {
@@ -125,5 +125,4 @@ public class Base64Test {
         }
         return hash.toString();
     }
-
 }
