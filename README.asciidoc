@@ -15,14 +15,12 @@ Encoding and decoding using the Base64 library is extremely simple.
 
 
 .Encoding Example
-[source,java]
 ----
 private String input = "The quick brown fox jumps over the lazy dog.";
 String result = Base64.encode(input.getBytes());
 ----
 
 .Decoding Example
-[source,java]
 ----
 private String output = "VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZy4=";
 String result = new String(Base64.decode(output));
