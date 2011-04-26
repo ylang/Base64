@@ -232,7 +232,7 @@ public class Base64Gui extends javax.swing.JFrame {
             jTextAreaDecodedText.setText("");
         }
         try  {
-            jTextAreaDecodedText.setText( new String(Base64.decode(jTextAreaEncodedText.getText()))  );
+            jTextAreaDecodedText.setText( new String(Base64.decode(jTextAreaEncodedText.getText().replaceAll("[\r\n]", "")))  );
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Check that you have a correctly formatted Base64 string.","Exception Encountered",JOptionPane.ERROR_MESSAGE);
         }
