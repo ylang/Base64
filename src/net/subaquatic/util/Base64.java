@@ -35,6 +35,7 @@ public abstract class Base64 {
     private static final Logger logger = Logger.getLogger("net.subaquatic.Base64.class");
     private static final String b64alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     private static char[] b64AlphabetArray = b64alphabet.toCharArray();
+    private static final String inputRegex = "^[A-Za-z0-9+/]*[=]{0,2}";
 
     /**
      * Encode the string into Base64 format.
@@ -77,13 +78,19 @@ public abstract class Base64 {
     /**
      * Decodes a Base64 encoded string.
      * @param input The encoded Base64 String.
-     * @return The decoded string as an array of bytes.
+     * @return The decoded string as an array of bytes.  Null if error or invalid input was received.
      */
     public static byte[] decode(String input) {
-        byte[] output;
+        byte[] output = null;
         ArrayList<Integer> oal = new ArrayList<Integer>();
+        
+        String tmpString = input.toString();        
+        
+        // Reject any string that contains non-alphabet characters.
+        if (!tmpString.matches(inputRegex)) {
+            return output;
+        }     
 
-        String tmpString = input.toString();
         if (tmpString.indexOf("=") != -1) {
             // Replace an = with an A (0) (for byte boundaries)
             tmpString = tmpString.replaceAll("=", "A");

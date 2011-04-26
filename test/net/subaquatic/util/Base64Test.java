@@ -37,6 +37,8 @@ public class Base64Test {
 
     private static String input;
     private static String output;
+    private static String rfcInput;
+    private static String rfcOutput;
     private static byte[] digest;
     private static String encDigest;
 
@@ -52,6 +54,10 @@ public class Base64Test {
         System.out.println("String Setup:");
         System.out.printf(" INPUT: %s\n", input);
         System.out.printf("OUTPUT: %s\n", output);
+        
+        // Per the RFC Test Vectors
+        rfcInput = "foobar";
+        rfcOutput = "Zm9vYmFy";               
 
         // Binary data.  Going to create a SHA-256 hash of the input above.
         encDigest = "71N/JciVv6eCUmUpqbY9l6pjFWTV14nCt2VEjIY1+2w=";
@@ -111,6 +117,22 @@ public class Base64Test {
         byte[] result = Base64.decode(encDigest);
         System.out.printf("\tRESULT: %s\n", toHexString(result));
         assertArrayEquals(digest, result);
+    }
+    
+    @Test
+    public void testRfcEncodeString() {
+        System.out.println("testRfcEncodeString");
+        String result = Base64.encode(rfcInput.getBytes());
+        System.out.printf("\tRESULT: %s\n", result);
+        assertEquals(rfcOutput, result);
+    }
+    
+    @Test
+    public void testRfcDecodeString() {
+        System.out.println("testRfcDecodeString");
+        String result = new String(Base64.decode(rfcOutput));
+        System.out.printf("\tRESULT: %s\n", result);
+        assertEquals(rfcInput, result);
     }
 
     private static String toHexString(byte[] array) {
